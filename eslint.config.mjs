@@ -1,34 +1,48 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import eslintPluginTs from '@typescript-eslint/eslint-plugin';
+import parserTs from '@typescript-eslint/parser';
+import prettierPlugin from 'eslint-plugin-prettier';
+import js from '@eslint/js';
 
-export default tseslint.config(
+/** @type {import("eslint").Linter.FlatConfig[]} */
+export default [
   {
-    ignores: ['eslint.config.mjs'],
-  },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
-  {
+    files: ['**/*.ts'],
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      sourceType: 'commonjs',
+      parser: parserTs,
       parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        project: './tsconfig.json',
+        sourceType: 'module',
+        ecmaVersion: 'latest',
+      },
+      globals: {
+        // Node.js 22 built-in globals
+        require: 'readonly',
+        module: 'readonly',
+        __dirname: 'readonly',
+        process: 'readonly',
+        console: 'readonly',
       },
     },
-  },
-  {
+    plugins: {
+      '@typescript-eslint': eslintPluginTs,
+      prettier: prettierPlugin,
+    },
     rules: {
+      // TypeScript-specific rules
+      '@typescript-eslint/interface-name-prefix': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      '@typescript-eslint/no-unused-vars': 'warn',
+
+      // Formatting and code style
+      // 'object-curly-spacing': ['error', 'always'],
+      'brace-style': ['error', '1tbs'],
+      curly: ['error', 'multi-line'],
+
+      // Prettier integration
+      'prettier/prettier': 'error',
     },
   },
-);
+  //js.configs.recommended, // Basic JS rules (optional but useful)
+];
