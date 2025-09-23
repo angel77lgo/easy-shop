@@ -1,0 +1,10 @@
+const path = require('path');
+require('ts-node/register'); // Add this to work with TypeScript
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
+module.exports = {
+  'config': path.resolve(__dirname, 'config', 'config.js'),
+  'migrations-path': path.resolve('src', 'migrations'),
+  'seeders-path': path.resolve('src', 'seeders'),
+  'models-path': path.resolve('src', 'model'),
+};

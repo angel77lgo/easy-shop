@@ -9,6 +9,13 @@ import {
   DB_PORT,
   DB_USER,
 } from './utils/constants';
+import { UserModule } from './user/user.module';
+import { OrganizationModule } from './organization/organization.module';
+import { RoleModule } from './role/role.module';
+import { ProductModule } from './product/product.module';
+import { BrandModule } from './brand/brand.module';
+import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
+import { ProductShoppingCartModule } from './product-shopping-cart/product-shopping-cart.module';
 
 @Module({
   imports: [
@@ -23,6 +30,13 @@ import {
       synchronize: true,
       logging: false,
     }),
+    UserModule,
+    OrganizationModule,
+    RoleModule,
+    ProductModule,
+    BrandModule,
+    ShoppingCartModule,
+    ProductShoppingCartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
