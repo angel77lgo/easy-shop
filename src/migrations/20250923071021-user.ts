@@ -88,6 +88,10 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       roleId: {
         type: DataTypes.UUID,
         allowNull: false,

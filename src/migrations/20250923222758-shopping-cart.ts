@@ -79,5 +79,8 @@ module.exports = {
     });
   },
 
-  async down(queryInterface: QueryInterface) {},
+  async down(queryInterface: QueryInterface) {
+    await queryInterface.dropTable('ShoppingCart');
+    await queryInterface.dropTable('ProductShoppingCart');
+  },
 };
