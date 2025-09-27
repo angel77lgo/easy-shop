@@ -53,7 +53,7 @@ export class BrandRepository {
   }
 
   async findAll(
-    options: FindOptions<Brand>,
+    options?: FindOptions<Brand>,
     ts?: Transaction,
   ): Promise<Brand[]> {
     return await this.repository.findAll({
