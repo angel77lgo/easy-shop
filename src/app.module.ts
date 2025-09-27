@@ -16,6 +16,7 @@ import { ProductModule } from './product/product.module';
 import { BrandModule } from './brand/brand.module';
 import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
 import { ProductShoppingCartModule } from './product-shopping-cart/product-shopping-cart.module';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { ProductShoppingCartModule } from './product-shopping-cart/product-shopp
     BrandModule,
     ShoppingCartModule,
     ProductShoppingCartModule,
+    CoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,6 +3,7 @@ import { BrandRepository } from '../repository/brand.repository';
 import { InjectConnection } from '@nestjs/sequelize';
 import { Op, Sequelize, Transaction } from 'sequelize';
 import { Brand } from '../model/brand.entity';
+import { ConflictException } from '../../core/exception/custom.exception';
 
 @Injectable()
 export class BrandService {
@@ -18,7 +19,7 @@ export class BrandService {
         where: { brandName: data.brandName },
       });
       if (existBrand) {
-        throw new HttpException('Brand already exists', 400);
+        throw new ConflictException('Brand', existBrand.brandName);
       }
       const newBrand = await this.brandRepository.create(data, transaction);
       if (!ts) await transaction.commit();
