@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { Column, HasMany, Model, Table } from 'sequelize-typescript';
 import { User } from '../../user/model/user.entity';
+import { Product } from '../../product/model/product.entity';
 
 @Table({ freezeTableName: true })
 export class Organization extends Model {
@@ -33,6 +34,9 @@ export class Organization extends Model {
 
   @HasMany(() => User)
   declare users: User[];
+
+  @HasMany(() => Product)
+  declare products: Product[];
 
   @Column({
     type: DataTypes.DATE,

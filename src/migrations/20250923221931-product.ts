@@ -46,9 +46,22 @@ module.exports = {
           key: 'id',
         },
       },
+      organizationId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'Organization',
+          key: 'id',
+        },
+      },
       productName: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      sku: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
       },
       description: {
         type: DataTypes.STRING,

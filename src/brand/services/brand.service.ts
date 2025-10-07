@@ -37,10 +37,13 @@ export class BrandService {
    */
   async findBrands(name?: string): Promise<Brand[]> {
     if (!name) {
-      return await this.brandRepository.findAll();
+      return await this.brandRepository.findAll({
+        attributes: ['id', 'brandName'],
+      });
     }
 
     return await this.brandRepository.findAll({
+      attributes: ['id', 'brandName'],
       where: { brandName: { [Op.iLike]: `%${name}%` } },
     });
   }

@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Brand } from '../../brand/model/brand.entity';
 import { ProductShoppingCart } from '../../product-shopping-cart/model/product-shopping-cart.entity';
+import { Organization } from '../../organization/model/organization.entity';
 
 @Table({ freezeTableName: true })
 export class Product extends Model {
@@ -27,11 +28,21 @@ export class Product extends Model {
   @BelongsTo(() => Brand)
   declare brand: Brand;
 
+  @ForeignKey(() => Organization)
+  @Column({ type: DataTypes.UUID, allowNull: false })
+  declare organizationId: string;
+
+  @BelongsTo(() => Organization)
+  declare organization: Organization;
+
   @Column({ type: DataTypes.STRING, allowNull: false })
   declare productName: string;
 
   @Column({ type: DataTypes.TEXT, allowNull: true })
   declare description: string;
+
+  @Column({ type: DataTypes.STRING, allowNull: false, unique: true })
+  declare sku: string;
 
   @Column({ type: DataTypes.INTEGER, allowNull: false })
   declare quantity: number;
