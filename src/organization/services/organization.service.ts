@@ -7,6 +7,7 @@ import { UserService } from '../../user/services/user.service';
 import { InjectConnection } from '@nestjs/sequelize';
 import { RoleService } from '../../role/services/role.service';
 import { ROLES } from '../../role/constants/role.constants';
+import { User } from '../../user/model/user.entity';
 
 @Injectable()
 export class OrganizationService {
@@ -16,7 +17,7 @@ export class OrganizationService {
     private readonly organizationRepository: OrganizationRepository,
     @Inject(UserService) private userService: UserService,
     @Inject(RoleService) private roleService: RoleService,
-  ) {}
+  ) { }
 
   async createOrganization(data: IRegisterUser) {
     const { organizationName, document } = data;
@@ -29,7 +30,6 @@ export class OrganizationService {
       );
 
       const role = await this.roleService.findByName(ROLES.ADMIN);
-      console.log(role);
 
       await this.userService.createUser(
         {
@@ -65,5 +65,16 @@ export class OrganizationService {
       if (!ts) await transaction.rollback();
       throw new HttpException(error.message, 400);
     }
+  }
+
+  async getAllOrganizations() {
+    const allOrganizations = await this.organizationRepository.findAll({
+      attributes: ['id', 'organizationName', 'document', 'logo'],
+      include: [
+        { model: User, attributes: ['id', 'firstName', 'lastName', 'email'] },
+      ],
+    });
+    console.log(allOrganizations);
+    return allOrganizations;
   }
 }

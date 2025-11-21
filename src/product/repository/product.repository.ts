@@ -7,7 +7,7 @@ import { FindOptions, Transaction } from 'sequelize';
 export class ProductRepository {
   constructor(
     @InjectModel(Product) private readonly repository: typeof Product,
-  ) {}
+  ) { }
 
   async findById(id: string): Promise<Product | null> {
     return await this.repository.findByPk(id);
@@ -55,7 +55,7 @@ export class ProductRepository {
   }
 
   async findAll(
-    options: FindOptions<Product>,
+    options?: FindOptions<Product>,
     ts?: Transaction,
   ): Promise<Product[]> {
     return await this.repository.findAll({

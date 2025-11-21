@@ -8,10 +8,11 @@ import { ConflictException } from '../../core/exception/custom.exception';
 
 @Injectable()
 export class ProductService {
+
   constructor(
     @InjectConnection() private readonly sequelize: Sequelize,
     @Inject(ProductRepository) private productRepository: ProductRepository,
-  ) {}
+  ) { }
 
   async createProduct(productInfo: ICreateProduct) {
     const { sku } = productInfo;
@@ -25,5 +26,10 @@ export class ProductService {
 
   async findBySku(sku: string): Promise<Product | null> {
     return await this.productRepository.findOne({ where: { sku } });
+  }
+
+  async getAllProducts() {
+    const products = await this.productRepository.findAll({});
+    return products;
   }
 }

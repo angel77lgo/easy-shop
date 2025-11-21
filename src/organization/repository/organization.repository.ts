@@ -8,7 +8,7 @@ export class OrganizationRepository {
   constructor(
     @InjectModel(Organization)
     private readonly repository: typeof Organization,
-  ) {}
+  ) { }
 
   async findById(id: string): Promise<Organization | null> {
     return await this.repository.findByPk(id);
@@ -59,7 +59,7 @@ export class OrganizationRepository {
   }
 
   async findAll(
-    options: FindOptions<Organization>,
+    options?: FindOptions<Organization>,
     ts?: Transaction,
   ): Promise<Organization[]> {
     return await this.repository.findAll({
