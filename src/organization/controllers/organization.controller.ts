@@ -7,7 +7,7 @@ export class OrganizationController {
   constructor(
     @Inject(OrganizationService)
     private organizationService: OrganizationService,
-  ) { }
+  ) {}
 
   @Post('onboard')
   async createOrganization(@Body() data: IRegisterUser) {

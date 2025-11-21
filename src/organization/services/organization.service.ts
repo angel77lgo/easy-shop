@@ -17,7 +17,7 @@ export class OrganizationService {
     private readonly organizationRepository: OrganizationRepository,
     @Inject(UserService) private userService: UserService,
     @Inject(RoleService) private roleService: RoleService,
-  ) { }
+  ) {}
 
   async createOrganization(data: IRegisterUser) {
     const { organizationName, document } = data;
@@ -74,7 +74,7 @@ export class OrganizationService {
         { model: User, attributes: ['id', 'firstName', 'lastName', 'email'] },
       ],
     });
-    console.log(allOrganizations);
+
     return allOrganizations;
   }
 }
