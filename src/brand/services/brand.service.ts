@@ -47,4 +47,8 @@ export class BrandService {
       where: { brandName: { [Op.iLike]: `%${name}%` } },
     });
   }
+
+  async findBrandById(id: string): Promise<Brand | null> {
+    return await this.brandRepository.findById(id);
+  }
 }
