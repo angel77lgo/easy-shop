@@ -40,6 +40,10 @@ export class UserService {
     }
   }
 
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.userRepository.findOne({ where: { email } });
+  }
+
   private hashPassword(password: string) {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(password, salt);
